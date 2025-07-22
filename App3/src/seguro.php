@@ -1,17 +1,16 @@
 <?php
 
 
-//Inicio la sesión 
+//Inicio la sesiï¿½n 
 session_start(); 
 
 //COMPRUEBA QUE EL USUARIO ESTA AUTENTIFICADO 
 if (!$_SESSION["userlog"]) { 
-    //si no existe, envio a la página de autentificacion 
+    //si no existe, envio a la pï¿½gina de autentificacion 
    header("Location:Login.php"); 
     //ademas salgo de este script 
     exit(); 
 }
-
 
 
 ?> 

@@ -71,45 +71,25 @@
                         </h5>
 
                         <div class="mb-3">
-                          <label class="form-label">Nombre</label>
                           <input type="text" id="txtNombre" name="txtNombre" class="form-control" 
                                  placeholder="Nombre" required>
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label">Apellido</label>
                           <input type="text" id="txtApellido" name="txtApellido" class="form-control" 
                                  placeholder="Apellido" required>
                         </div>
 
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-check mb-3">
-          
-                            </div>
-                          </div>
-                          <div class="col-6">
-                            <div class="form-check mb-3">
-                            
-                            </div>
-                          </div>
-                        </div>
-
-                       
                         <div class="mb-3">
-                          <a href="#" class="text-primary" style="text-decoration: none;">Añadir etiqueta, nota</a>
-                        </div>
-
-                        <div class="mb-3">
-                          <label class="form-label">ID de Cliente</label>
+                          <h6 class="mb-3 text-primary mt-4">ID Cliente</h6>
                           <input type="text" id="txtID" name="txtID" class="form-control" 
-                                 placeholder="3813" value="3813">
+                                 placeholder="ID de Cliente" value="3813">
                         </div>
 
                         <h6 class="mb-3 text-primary mt-4">Contacto</h6>
 
                         <div class="mb-3">
-                          <label class="form-label">Correo electrónico</label>
+                          
                           <input type="email" id="txtEmail" name="txtEmail" class="form-control" 
                                  placeholder="Correo electrónico">
                         </div>
@@ -122,13 +102,21 @@
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label">Teléfono</label>
                           <input type="tel" id="txtTelefono" name="txtTelefono" class="form-control" 
                                  placeholder="Teléfono" required>
                         </div>
 
+                        <!-- Fecha de registro editable -->
                         <div class="mb-3">
-                          <a href="#" class="text-primary" style="text-decoration: none;">Más detalles...</a>
+                          <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="fecha-registro-container">
+                              <small class="text-muted d-flex align-items-center">
+                                <i data-acorn-icon="calendar" class="me-1" style="font-size: 14px;"></i>
+                                <span>Fecha de registro: </span>
+                                <input type="date" id="fechaRegistro" name="fechaRegistro" class="form-control form-control-sm d-inline-block ms-1" style="width: auto; display: inline-block;">
+                              </small>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -144,37 +132,31 @@
                         </h5>
 
                         <div class="mb-3">
-                          <label class="form-label">Dirección completa</label>
                           <textarea id="txtDireccion" name="txtDireccion" class="form-control" rows="3" 
                                     placeholder="Dirección completa" required></textarea>
                         </div>
 
                         <div class="row">
                           <div class="col-md-4 mb-3">
-                            <label class="form-label">Calle</label>
                             <input type="text" id="txtCalle" name="txtCalle" class="form-control" 
                                    placeholder="Calle">
                           </div>
                           <div class="col-md-4 mb-3">
-                            <label class="form-label">Ciudad</label>
                             <input type="text" id="txtCiudad" name="txtCiudad" class="form-control" 
                                    placeholder="Ciudad">
                           </div>
                           <div class="col-md-4 mb-3">
-                            <label class="form-label">Código postal</label>
                             <input type="text" id="txtCodigoPostal" name="txtCodigoPostal" class="form-control" 
                                    placeholder="Código postal">
                           </div>
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label">Calle 2</label>
                           <input type="text" id="txtCalle2" name="txtCalle2" class="form-control" 
                                  placeholder="Calle 2">
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label">Nacionalidad</label>
                           <select id="selectNacionalidad" name="selectNacionalidad" class="form-control">
                             <option value="MX" selected>MX Mexico</option>
                             <option value="US">USA</option>
@@ -183,12 +165,10 @@
 
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">Latitud de GPS</label>
                             <input type="text" id="txtLatitud" name="txtLatitud" class="form-control" 
                                    placeholder="Latitud de GPS">
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label class="form-label">Longitud de GPS</label>
                             <input type="text" id="txtLongitud" name="txtLongitud" class="form-control" 
                                    placeholder="Longitud de GPS">
                           </div>
@@ -240,13 +220,64 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5VV4z8tv-6N9nHtl99iwlfjFUEVY-8-I&callback=initMap&v=weekly"
       defer
     ></script>
+    <!-- Incluir el manejador de clientes -->
+<script src="../js/mock-data.js"></script>
+<script src="../js/client-handler.js"></script>
+
+  <script>
+  // Configurar el formulario para guardar
+  document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      if (form) {
+          form.addEventListener('submit', function(event) {
+              event.preventDefault();
+              handleNewClientSubmit(event);
+          });
+      }
+  });
+  </script>
+
+  <style>
+    .fecha-registro-container {
+      background-color: #f8f9fa;
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: 1px solid #e9ecef;
+      font-size: 0.85rem;
+    }
+    
+    @media (max-width: 768px) {
+      .fecha-registro-container {
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 
   <script>
     let map, marker;
 
+    // Obtener fecha actual formateada para el input type="date"
+    function obtenerFechaActual() {
+      const ahora = new Date();
+      const year = ahora.getFullYear();
+      const month = String(ahora.getMonth() + 1).padStart(2, '0');
+      const day = String(ahora.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    // Establecer fecha de registro automáticamente
+    function establecerFechaRegistro() {
+      const fechaElement = document.getElementById('fechaRegistro');
+      if (fechaElement) {
+        fechaElement.value = obtenerFechaActual();
+      }
+    }
+
     // Inicializar mapa de Google
     function initMap() {
-      // Coordenadas por defecto (Ciudad de México)
+      // Coordenadas por defecto (Ciudad de Tulancingo)
       const defaultLocation = { lat: 20.0832, lng: -98.3689 };
       
       map = new google.maps.Map(document.getElementById("map"), {
@@ -310,6 +341,9 @@
     }
 
     $(document).ready(function() {
+      // Establecer la fecha de registro al cargar la página
+      establecerFechaRegistro();
+
       // Inicializar Select2
       $('#selectNacionalidad').select2({
         placeholder: 'Seleccione nacionalidad'
@@ -328,112 +362,229 @@
       });
     });
 
-    function saveClient() {
-      if (!validateForm()) {
+// Función mejorada para guardar cliente
+function saveClient() {
+    // 1. Validar campos básicos
+    if (!validateForm()) {
         return;
-      }
+    }
 
-      $.confirm({
-        title: 'Guardar Cliente',
-        content: '¿Está seguro de guardar este cliente?',
-        buttons: {
-          confirm: {
-            text: 'Guardar',
-            btnClass: 'btn-success',
-            action: function() {
-              $.alert({
-                title: 'Éxito',
-                content: 'Cliente guardado exitosamente',
-                type: 'green',
-                buttons: {
-                  ok: function() {
-                    $('#formAddClient')[0].reset();
-                    $('#selectNacionalidad').val('').trigger('change');
-                  }
+    // 2. Mostrar spinner
+    $('#spinner-div').show();
+
+    // 3. Preparar datos del formulario
+    const formData = prepareFormData();
+
+    // 4. Enviar al servidor
+    $.ajax({
+        url: 'save_client.php',
+        method: 'POST',
+        data: formData,
+        dataType: 'json',
+        timeout: 30000, // 30 segundos timeout
+        success: function(response) {
+            $('#spinner-div').hide();
+            
+            if (response.success) {
+                // Mostrar mensaje de éxito
+                showSuccessMessage(response.message, response.clientId);
+                
+                // Redirigir usando la URL proporcionada o construir una
+                if (response.redirect_url) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    redirectToClientProfile(response.clientId, formData);
                 }
-              });
+                
+            } else {
+                showErrorMessage(response.message || 'Error desconocido');
             }
-          },
-          cancel: {
-            text: 'Cancelar',
-            btnClass: 'btn-secondary'
-          }
-        }
-      });
-    }
-
-    function saveAndSendClient() {
-      if (!validateForm()) {
-        return;
-      }
-
-      $.confirm({
-        title: 'Enviar y Guardar Cliente',
-        content: '¿Está seguro de enviar y guardar este cliente?',
-        buttons: {
-          confirm: {
-            text: 'Enviar y Guardar',
-            btnClass: 'btn-primary',
-            action: function() {
-              $.alert({
-                title: 'Éxito',
-                content: 'Cliente enviado y guardado exitosamente',
-                type: 'green',
-                buttons: {
-                  ok: function() {
-                    $('#formAddClient')[0].reset();
-                    $('#selectNacionalidad').val('').trigger('change');
-                  }
-                }
-              });
+        },
+        error: function(xhr, status, error) {
+            $('#spinner-div').hide();
+            
+            let errorMessage = 'Error de conexión. Intenta nuevamente.';
+            
+            if (status === 'timeout') {
+                errorMessage = 'Tiempo de espera agotado. Intenta nuevamente.';
+            } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                errorMessage = xhr.responseJSON.message;
             }
-          },
-          cancel: {
-            text: 'Cancelar',
-            btnClass: 'btn-secondary'
-          }
+            
+            showErrorMessage(errorMessage);
         }
-      });
-    }
-
-    function validateForm() {
-      let isValid = true;
-      let errors = [];
-
-      $('.is-invalid').removeClass('is-invalid');
-
-      if (!$('#txtNombre').val().trim()) {
-        errors.push('El nombre es requerido');
-        $('#txtNombre').addClass('is-invalid');
-        isValid = false;
-      }
-
-      if (!$('#txtTelefono').val().trim()) {
-        errors.push('El teléfono es requerido');
-        $('#txtTelefono').addClass('is-invalid');
-        isValid = false;
-      }
-
-      if (!$('#txtDireccion').val().trim()) {
-        errors.push('La dirección es requerida');
-        $('#txtDireccion').addClass('is-invalid');
-        isValid = false;
-      }
-
-      if (!isValid) {
-        $.alert({
-          title: 'Campos Requeridos',
-          content: 'Por favor complete los siguientes campos:\n• ' + errors.join('\n• '),
-          type: 'red'
-        });
-      }
-
-      return isValid;
-    }
-
-    $('#txtNombre, #txtTelefono, #txtDireccion').on('input', function() {
-      $(this).removeClass('is-invalid');
     });
+}
+
+// Función para preparar datos del formulario
+function prepareFormData() {
+    return {
+        txtNombre: $('#txtNombre').val().trim(),
+        txtApellido: $('#txtApellido').val().trim(),
+        txtEmail: $('#txtEmail').val().trim(),
+        txtTelefono: $('#txtTelefono').val().trim(),
+        txtDireccion: $('#txtDireccion').val().trim(),
+        txtCalle: $('#txtCalle').val().trim(),
+        txtCalle2: $('#txtCalle2').val().trim(),
+        txtCiudad: $('#txtCiudad').val().trim(),
+        txtCodigoPostal: $('#txtCodigoPostal').val().trim(),
+        txtLatitud: $('#txtLatitud').val().trim(),
+        txtLongitud: $('#txtLongitud').val().trim(),
+        txtID: $('#txtID').val().trim(),
+        selectNacionalidad: $('#selectNacionalidad').val(),
+        checkUsarCorreo: $('#checkUsarCorreo').is(':checked') ? 1 : 0,
+        fechaRegistro: $('#fechaRegistro').val()
+    };
+}
+
+// Función mejorada de validación
+function validateForm() {
+    let isValid = true;
+    let errors = [];
+
+    // Limpiar errores previos
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
+
+    // Validar campos requeridos
+    const requiredFields = [
+        { id: 'txtNombre', name: 'Nombre' },
+        { id: 'txtApellido', name: 'Apellido' },
+        { id: 'txtTelefono', name: 'Teléfono' },
+        { id: 'txtDireccion', name: 'Dirección' }
+    ];
+
+    requiredFields.forEach(field => {
+        const $field = $('#' + field.id);
+        if (!$field.val().trim()) {
+            errors.push(field.name + ' es requerido');
+            $field.addClass('is-invalid');
+            $field.after('<div class="invalid-feedback">' + field.name + ' es requerido</div>');
+            isValid = false;
+        }
+    });
+
+    // Validar email si está presente
+    const email = $('#txtEmail').val().trim();
+    if (email && !isValidEmail(email)) {
+        errors.push('Email debe tener un formato válido');
+        $('#txtEmail').addClass('is-invalid');
+        $('#txtEmail').after('<div class="invalid-feedback">Email debe tener un formato válido</div>');
+        isValid = false;
+    }
+
+    // Validar teléfono
+    const telefono = $('#txtTelefono').val().trim();
+    if (telefono && !isValidPhone(telefono)) {
+        errors.push('Teléfono debe tener un formato válido');
+        $('#txtTelefono').addClass('is-invalid');
+        $('#txtTelefono').after('<div class="invalid-feedback">Teléfono debe tener un formato válido</div>');
+        isValid = false;
+    }
+
+    // Mostrar errores si los hay
+    if (!isValid) {
+        showErrorMessage('Por favor corrija los siguientes errores:<br>• ' + errors.join('<br>• '));
+    }
+
+    return isValid;
+}
+
+// Función para validar email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Función para validar teléfono
+function isValidPhone(phone) {
+    const phoneRegex = /^[\d\s\-\(\)\+]+$/;
+    return phoneRegex.test(phone) && phone.length >= 7;
+}
+
+// Función para mostrar mensaje de éxito
+function showSuccessMessage(message, clientId) {
+    if (typeof $.alert === 'function') {
+        $.alert({
+            title: '¡Éxito!',
+            content: message + (clientId ? '<br>ID del cliente: ' + clientId : ''),
+            type: 'green',
+            buttons: {
+                ok: {
+                    text: 'OK',
+                    btnClass: 'btn-success'
+                }
+            }
+        });
+    } else {
+        alert(message + (clientId ? '\nID del cliente: ' + clientId : ''));
+    }
+}
+
+// Función para mostrar mensaje de error
+function showErrorMessage(message) {
+    if (typeof $.alert === 'function') {
+        $.alert({
+            title: 'Error',
+            content: message,
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: 'OK',
+                    btnClass: 'btn-danger'
+                }
+            }
+        });
+    } else {
+        alert('Error: ' + message);
+    }
+}
+
+// Función de redirección de respaldo
+function redirectToClientProfile(clientId, formData) {
+    const params = new URLSearchParams();
+    
+    // Agregar datos del formulario
+    Object.keys(formData).forEach(key => {
+        if (formData[key]) {
+            params.append(key, formData[key]);
+        }
+    });
+    
+    // Agregar parámetros adicionales
+    params.append('clientId', clientId);
+    params.append('success', '1');
+    
+    // Redirigir
+    window.location.href = `client.php?${params.toString()}`;
+}
+
+// Remover estilos de error cuando el usuario empiece a escribir
+$(document).ready(function() {
+    $('#txtNombre, #txtApellido, #txtTelefono, #txtDireccion, #txtEmail').on('input', function() {
+        $(this).removeClass('is-invalid');
+        $(this).next('.invalid-feedback').remove();
+    });
+});
+
+// Función para resetear el formulario
+function resetForm() {
+    $('#formAddClient')[0].reset();
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
+    
+    // Restablecer mapa a posición por defecto
+    if (map && marker) {
+        const defaultLocation = { lat: 20.0832, lng: -98.3689 };
+        map.setCenter(defaultLocation);
+        marker.setPosition(defaultLocation);
+        $('#txtLatitud').val('');
+        $('#txtLongitud').val('');
+    }
+    
+    // Restablecer fecha
+    establecerFechaRegistro();
+}
   </script>
 </body>
 </html>

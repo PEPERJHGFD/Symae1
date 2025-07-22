@@ -49,7 +49,7 @@
                   </button>
                   <button type="button" class="btn btn-secondary btn-icon btn-icon-start me-2" onclick="saveClient()">
                     <i data-acorn-icon="save"></i>
-                    <span>GUARDAR</span>
+                    <span>GUARDAR CAMBIOS</span>
                   </button>
                 </div>
                 <!-- Top Buttons End -->
