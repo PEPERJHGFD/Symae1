@@ -131,6 +131,8 @@
                           <th scope="col">Nombre</th>
                           <th scope="col">Saldo</th>
                           <th scope="col">Planes de Servicio</th>
+                          <th scope="col">Pagos</th>
+                          <th scope="col">Status</th>
                           <th scope="col">Acciones</th>
                         </tr>
                       </thead>
@@ -392,7 +394,99 @@
   <script src="../js/clients.js"></script>
   <script src="../js/payments.js"></script>
   <script src="../js/printThis.js"></script>
+<!-- Script de prueba para la simulación -->
+ 
+  <script src="../js/mock-data.js"></script>
 
+  <script>
+      jQuery('#txtfec').datepicker();
+
+      function GetStatus(idUCRM, nom, idcli, tipo) {
+          document.getElementById('statusClientID').innerHTML = nom;
+          
+          if (tipo == '2') {
+              GetStatusFiber(idUCRM, idcli);
+          } else {
+              GetStatusStatic(idUCRM, idcli);
+          }
+      }
+
+      function Save() {
+          $.confirm({
+              title: 'Registrar',
+              content: '¿Esta Seguro de Registrar el PAGO?',
+              buttons: {
+                  confirm: {
+                      text: 'Registrar',
+                      btnClass: 'btn-success',
+                      action: function () {
+                          SavePay(
+                              document.getElementById('txtidUCRM').value, 
+                              document.getElementById('txtidcli').value, 
+                              document.getElementById('Select_Method').value, 
+                              document.getElementById('txtfec').value, 
+                              document.getElementById('txthora').value, 
+                              document.getElementById('txtaut').value, 
+                              document.getElementById('txtmonto').value, 
+                              document.getElementById('txtnotas').value, 
+                              document.getElementById('txtcli').value
+                          );
+                      }
+                  },
+                  cancel: {
+                      text: 'Cancelar',
+                      btnClass: 'btn-danger',
+                      action: function () {
+                          // Cancelar
+                      }
+                  }
+              }
+          });
+      }
+
+      function GetData(idUCRM, nom, idcli) {
+          var hoy = new Date();
+          var m = hoy.getMonth() + 1;
+          var mes = (m < 10) ? '0' + m : m;
+          var hh = hoy.getDate();
+          var hho = (hh < 10) ? '0' + hh : hh;
+
+          var fecha = hho + "/" + mes + "/" + hoy.getFullYear();
+          var hora = hoy.getHours() + ":" + hoy.getMinutes();
+
+          document.getElementById('txtidUCRM').value = idUCRM;
+          document.getElementById('txtidcli').value = idcli;
+          document.getElementById('txtcli').value = nom;
+          document.getElementById('txtfec').value = fecha;
+          document.getElementById('txthora').value = hora;
+      }
+
+      $(document).ready(function () {
+          // Cargar datos de prueba
+          LClients('');
+          LMethod('');
+          
+          // Ocultar spinner inicial
+          $('#spinner-div').hide();
+      });
+
+      $('#txtbuscacli').keypress(function (event) {
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if (keycode == '13') {
+              LClients(document.getElementById('txtbuscacli').value);
+              document.getElementById("txtbuscacli").select();
+          }
+      });
+
+      // Función para búsqueda en tiempo real (opcional)
+      $('#txtbuscacli').on('input', function() {
+          const searchTerm = this.value;
+          clearTimeout(this.searchTimeout);
+          this.searchTimeout = setTimeout(() => {
+              LClients(searchTerm);
+          }, 300);
+      });
+  </script>
   <script>
 
     jQuery('#txtfec').datepicker();

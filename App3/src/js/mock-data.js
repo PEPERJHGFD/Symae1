@@ -10,7 +10,7 @@ const mockClients = [
     }
 ];
 
-// Función para simular la carga de clientes con funcionalidades corregidas
+// Función para simular la carga de clientes con iconos más pequeños
 function LClients(searchTerm = '') {
     console.log('Cargando clientes de prueba...');
     
@@ -24,7 +24,7 @@ function LClients(searchTerm = '') {
         );
     }
     
-    // Generar HTML de la tabla con funcionalidades corregidas
+    // Generar HTML de la tabla con iconos más pequeños y compactos
     const tbody = document.querySelector('#tbl_clients tbody');
     if (!tbody) {
         console.error('No se encontró el tbody de la tabla');
@@ -48,60 +48,60 @@ function LClients(searchTerm = '') {
                 <td class="text-muted">$${client.saldo.toFixed(2)}</td>
                 <td class="text-muted">${client.plan}</td>
                 <td>
-                    <!-- Columna Pagos: Botones de factura y historial de pagos juntos -->
+                    <!-- Columna Pagos: Botones más pequeños y compactos -->
                     <div class="btn-group" role="group" style="gap: 3px;">
-                        <!-- Botón de factura/documento (verde) -->
+                        <!-- Botón de factura (verde) -->
                         <button type="button" 
-                                class="btn btn-sm btn-success rounded-circle" 
+                                class="btn btn-sm btn-outline-success" 
                                 onclick="GetData('${client.idUCRM}', '${client.nombre}', '${client.id}')" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#modal-checkout"
                                 title="Ver/Generar factura"
-                                style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-file-alt" style="font-size: 14px;"></i>
+                                style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 0;">
+                            <i data-acorn-icon="file-text" style="width: 14px; height: 14px; color: #198754; stroke-width: 1.8;"></i>
                         </button>
                         
-                        <!-- Botón de historial de pagos (azul con ícono de ojo) -->
+                        <!-- Botón de historial de pagos (azul) -->
                         <button type="button" 
-                                class="btn btn-sm btn-primary rounded-circle" 
+                                class="btn btn-sm btn-outline-primary" 
                                 onclick="showPaymentHistory('${client.idUCRM}', '${client.nombre}', '${client.id}')" 
                                 title="Ver historial de pagos"
-                                style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-eye" style="font-size: 14px;"></i>
+                                style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 0;">
+                            <i data-acorn-icon="eye" style="width: 14px; height: 14px; color: #0d6efd; stroke-width: 1.8;"></i>
                         </button>
                     </div>
                 </td>
                 <td>
-                    <!-- Columna Status: Botón circular con "T" ahora muestra detalles de estado -->
+                    <!-- Columna Status: Botón con signo de admiración más pequeño -->
                     <button type="button" 
-                            class="btn btn-sm btn-outline-secondary rounded-circle" 
+                            class="btn btn-sm btn-outline-info" 
                             onclick="GetStatus('${client.idUCRM}', '${client.nombre}', '${client.id}', '${client.tipo}')" 
                             data-bs-toggle="modal" 
                             data-bs-target="#modal-status"
                             title="Ver detalles de estado del cliente"
-                            style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; color: #6c757d; border-color: #6c757d;">
-                        <span style="font-size: 14px; font-weight: bold;">¡</span>
+                            style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 0;">
+                        <span style="font-size: 16px; font-weight: bold; color: #0dcaf0; line-height: 1;">¡</span>
                     </button>
                 </td>
                 <td>
-                    <!-- Columna Acciones: Botones de editar y ver perfil -->
+                    <!-- Columna Acciones: Botones más pequeños y compactos -->
                     <div class="btn-group" role="group" style="gap: 3px;">
-                        <!-- Botón de editar cliente (naranja/warning) -->
+                        <!-- Botón de editar cliente (amarillo) -->
                         <button type="button" 
-                                class="btn btn-sm btn-warning rounded-circle" 
+                                class="btn btn-sm btn-outline-warning" 
                                 onclick="editClient('${client.idUCRM}', '${client.nombre}', '${client.id}')" 
                                 title="Editar cliente"
-                                style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-edit" style="font-size: 14px; color: white;"></i>
+                                style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 0;">
+                            <i data-acorn-icon="edit" style="width: 14px; height: 14px; color: #ffc107; stroke-width: 1.8;"></i>
                         </button>
                         
-                        <!-- Botón de ver perfil del cliente (info/azul claro) -->
+                        <!-- Botón de ver perfil del cliente (gris) -->
                         <button type="button" 
-                                class="btn btn-sm btn-outline-info rounded-circle" 
+                                class="btn btn-sm btn-outline-secondary" 
                                 onclick="viewClientProfile('${client.idUCRM}', '${client.nombre}', '${client.id}')" 
                                 title="Ver perfil del cliente"
-                                style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-user" style="font-size: 14px;"></i>
+                                style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 0;">
+                            <i data-acorn-icon="user" style="width: 14px; height: 14px; color: #6c757d; stroke-width: 1.8;"></i>
                         </button>
                     </div>
                 </td>
@@ -116,7 +116,7 @@ function LClients(searchTerm = '') {
     console.log(`${filteredClients.length} clientes cargados`);
 }
 
-// FUNCIONES CON FUNCIONALIDADES CORREGIDAS:
+// FUNCIONES CON FUNCIONALIDADES MANTENIDAS (sin cambios):
 
 // Función para mostrar historial de pagos (ahora en el ícono del ojo)
 function showPaymentHistory(idUCRM, nombre, clientId) {
@@ -282,4 +282,3 @@ function updateItemCount(count) {
         itemCountElement.textContent = `${count} Items`;
     }
 }
-
